@@ -1,0 +1,19 @@
+def cast(new_type):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            try:
+                return new_type(result)
+            except:
+                raise Exception(f'Невозможно преобразовать {result} в {new_type}')
+        return wrapper  
+          
+    return decorator
+   
+@cast(str)
+def return_anyway_str():
+	return 10
+		
+if __name__ == '__main__':
+	res = return_anyway_str()
+	print(type(res))
